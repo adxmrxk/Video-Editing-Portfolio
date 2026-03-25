@@ -188,6 +188,29 @@
   transition: all 0.3s ease;
 }
 
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #9ca3af;
+}
+
+.form-group select:invalid {
+  color: #9ca3af;
+}
+
+.form-group select option {
+  background: #1a1a2e;
+  color: white;
+  padding: 12px;
+}
+
+.form-group select option:hover {
+  background: #2d2d44;
+}
+
+.form-group select option[value=""] {
+  color: #9ca3af;
+}
+
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {

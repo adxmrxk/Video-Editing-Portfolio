@@ -47,6 +47,12 @@ export class PortfolioComponent {
       title: 'Short 5',
       description: 'Celebrity fitness transformation journey',
       url: '/videos/5 Celebrities Transformation.mov'
+    },
+    {
+      id: 6,
+      title: 'Short 6',
+      description: 'Breaking down the Warriors downfall',
+      url: '/videos/Warriors Short Subtitles.mov'
     }
   ];
 
