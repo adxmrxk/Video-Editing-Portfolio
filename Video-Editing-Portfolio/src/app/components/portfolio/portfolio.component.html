@@ -1,0 +1,108 @@
+<section id="portfolio" class="portfolio-section">
+  <div class="container">
+    <h2 class="section-title">
+      My <span class="gradient-text">Portfolio</span>
+    </h2>
+    <p class="section-subtitle">Check out some of my recent work</p>
+
+    <div class="portfolio-wrapper">
+      @if (videos.length > 0) {
+        <div class="portfolio-carousel">
+          <!-- Previous video (left side) -->
+          <div class="video-container side">
+            <div class="video-wrapper">
+              <video
+                [src]="videos[getPreviousIndex()].url"
+                class="video-player"
+              >
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <div class="video-info">
+              <h3>{{ videos[getPreviousIndex()].title }}</h3>
+              <p>{{ videos[getPreviousIndex()].description }}</p>
+            </div>
+          </div>
+
+          <!-- Current video (center) -->
+          @for (video of videos; track video.id; let i = $index) {
+            @if (i === currentVideoIndex) {
+              <div class="video-container center video-slide">
+                <div class="video-wrapper">
+                  <video
+                    [src]="video.url"
+                    controls
+                    autoplay
+                    class="video-player"
+                    (click)="playVideo()"
+                    (ended)="onVideoEnded()"
+                  >
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+                <div class="video-info">
+                  <h3>{{ video.title }}</h3>
+                  <p>{{ video.description }}</p>
+                </div>
+              </div>
+            }
+          }
+
+          <!-- Next video (right side) -->
+          <div class="video-container side">
+            <div class="video-wrapper">
+              <video
+                [src]="videos[getNextIndex()].url"
+                class="video-player"
+              >
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            <div class="video-info">
+              <h3>{{ videos[getNextIndex()].title }}</h3>
+              <p>{{ videos[getNextIndex()].description }}</p>
+            </div>
+          </div>
+
+          <button
+            (click)="previousVideo()"
+            class="nav-button prev-button"
+            [disabled]="videos.length <= 1"
+          >
+            <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+          </button>
+
+          <button
+            (click)="nextVideo()"
+            class="nav-button next-button"
+            [disabled]="videos.length <= 1"
+          >
+            <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </button>
+        </div>
+
+        <div class="carousel-dots">
+          @for (video of videos; track video.id; let i = $index) {
+            <button
+              (click)="goToVideo(i)"
+              [class.active]="i === currentVideoIndex"
+              class="dot"
+            ></button>
+          }
+        </div>
+      } @else {
+        <div class="empty-state">
+          <svg width="96" height="96" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+          </svg>
+          <h3>No videos yet</h3>
+          <p>Add your video examples to the "entries" folder to showcase your work!</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
