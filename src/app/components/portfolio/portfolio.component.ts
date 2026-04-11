@@ -1,7 +1,5 @@
-import { Component, inject, AfterViewInit, OnDestroy, ElementRef, NgZone } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-
-declare var YT: any;
 
 interface Video {
   id: number;
@@ -16,17 +14,10 @@ interface Video {
   templateUrl: './portfolio.component.html',
   styleUrl: './portfolio.component.css'
 })
-export class PortfolioComponent implements AfterViewInit, OnDestroy {
+export class PortfolioComponent {
   private sanitizer = inject(DomSanitizer);
-  private elementRef = inject(ElementRef);
-  private ngZone = inject(NgZone);
-
   currentVideoIndex = 0;
   animationKey = 0;
-  private player: any = null;
-  private observer: IntersectionObserver | null = null;
-  private isInView = false;
-  private apiReady = false;
 
   videos: Video[] = [
     {
@@ -71,7 +62,6 @@ export class PortfolioComponent implements AfterViewInit, OnDestroy {
     if (this.videos.length > 0) {
       this.currentVideoIndex = (this.currentVideoIndex + 1) % this.videos.length;
       this.animationKey++;
-      this.reinitPlayer();
     }
   }
 
@@ -79,14 +69,12 @@ export class PortfolioComponent implements AfterViewInit, OnDestroy {
     if (this.videos.length > 0) {
       this.currentVideoIndex = (this.currentVideoIndex - 1 + this.videos.length) % this.videos.length;
       this.animationKey++;
-      this.reinitPlayer();
     }
   }
 
   goToVideo(index: number) {
     this.currentVideoIndex = index;
     this.animationKey++;
-    this.reinitPlayer();
   }
 
   playVideo() {
@@ -106,91 +94,7 @@ export class PortfolioComponent implements AfterViewInit, OnDestroy {
   }
 
   getYoutubeEmbedUrl(youtubeId: string): SafeResourceUrl {
-    const url = `https://www.youtube.com/embed/${youtubeId}?enablejsapi=1&loop=1&playlist=${youtubeId}&controls=1&modestbranding=1&rel=0&playsinline=1`;
+    const url = `https://www.youtube.com/embed/${youtubeId}?autoplay=1&loop=1&playlist=${youtubeId}&controls=1&modestbranding=1&rel=0&playsinline=1`;
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
-  }
-
-  ngAfterViewInit() {
-    this.loadYouTubeAPI();
-    this.setupIntersectionObserver();
-  }
-
-  ngOnDestroy() {
-    if (this.observer) {
-      this.observer.disconnect();
-    }
-    if (this.player) {
-      this.player.destroy();
-    }
-  }
-
-  private loadYouTubeAPI() {
-    if (typeof YT !== 'undefined' && YT.Player) {
-      this.apiReady = true;
-      this.initPlayer();
-      return;
-    }
-
-    const tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/iframe_api';
-    document.body.appendChild(tag);
-
-    (window as any).onYouTubeIframeAPIReady = () => {
-      this.ngZone.run(() => {
-        this.apiReady = true;
-        this.initPlayer();
-      });
-    };
-  }
-
-  private initPlayer() {
-    const iframe = this.elementRef.nativeElement.querySelector('.center .video-player');
-    if (iframe && this.apiReady) {
-      this.player = new YT.Player(iframe, {
-        events: {
-          onReady: (event: any) => {
-            if (this.isInView) {
-              event.target.playVideo();
-            }
-          },
-          onStateChange: (event: any) => {
-            if (event.data === YT.PlayerState.ENDED) {
-              this.ngZone.run(() => this.nextVideo());
-            }
-          }
-        }
-      });
-    }
-  }
-
-  private setupIntersectionObserver() {
-    this.observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          this.isInView = entry.isIntersecting;
-          if (entry.isIntersecting && this.player && this.player.playVideo) {
-            this.player.playVideo();
-          } else if (!entry.isIntersecting && this.player && this.player.pauseVideo) {
-            this.player.pauseVideo();
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-
-    const section = this.elementRef.nativeElement.querySelector('.portfolio-section');
-    if (section) {
-      this.observer.observe(section);
-    }
-  }
-
-  reinitPlayer() {
-    setTimeout(() => {
-      if (this.player) {
-        this.player.destroy();
-        this.player = null;
-      }
-      this.initPlayer();
-    }, 100);
   }
 }
