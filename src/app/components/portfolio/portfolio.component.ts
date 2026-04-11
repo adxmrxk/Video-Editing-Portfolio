@@ -93,9 +93,8 @@ export class PortfolioComponent {
     this.nextVideo();
   }
 
-  getYoutubeEmbedUrl(youtubeId: string, autoplay: boolean = false): SafeResourceUrl {
-    const autoplayParam = autoplay ? '1' : '0';
-    const url = `https://www.youtube.com/embed/${youtubeId}?autoplay=${autoplayParam}&loop=1&playlist=${youtubeId}&controls=1&modestbranding=1&rel=0&playsinline=1`;
+  getYoutubeEmbedUrl(youtubeId: string): SafeResourceUrl {
+    const url = `https://www.youtube.com/embed/${youtubeId}?loop=1&playlist=${youtubeId}&controls=1&modestbranding=1&rel=0&playsinline=1`;
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 }

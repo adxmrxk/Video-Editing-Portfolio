@@ -8,11 +8,11 @@
     <div class="portfolio-wrapper">
       @if (videos.length > 0) {
         <div class="portfolio-carousel">
-          <!-- Previous video (left side) - paused -->
+          <!-- Previous video (left side) -->
           <div class="video-container side">
             <div class="video-wrapper">
               <iframe
-                [src]="getYoutubeEmbedUrl(videos[getPreviousIndex()].youtubeId, false)"
+                [src]="getYoutubeEmbedUrl(videos[getPreviousIndex()].youtubeId)"
                 class="video-player"
                 frameborder="0"
                 allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -24,16 +24,16 @@
             </div>
           </div>
 
-          <!-- Current video (center) - autoplay -->
+          <!-- Current video (center) -->
           @for (video of videos; track video.id; let i = $index) {
             @if (i === currentVideoIndex) {
               <div class="video-container center video-slide">
                 <div class="video-wrapper">
                   <iframe
-                    [src]="getYoutubeEmbedUrl(video.youtubeId, true)"
+                    [src]="getYoutubeEmbedUrl(video.youtubeId)"
                     class="video-player"
                     frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen
                   ></iframe>
                 </div>
@@ -44,11 +44,11 @@
             }
           }
 
-          <!-- Next video (right side) - paused -->
+          <!-- Next video (right side) -->
           <div class="video-container side">
             <div class="video-wrapper">
               <iframe
-                [src]="getYoutubeEmbedUrl(videos[getNextIndex()].youtubeId, false)"
+                [src]="getYoutubeEmbedUrl(videos[getNextIndex()].youtubeId)"
                 class="video-player"
                 frameborder="0"
                 allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
