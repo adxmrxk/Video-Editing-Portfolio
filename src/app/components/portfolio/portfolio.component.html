@@ -8,14 +8,14 @@
     <div class="portfolio-wrapper">
       @if (videos.length > 0) {
         <div class="portfolio-carousel">
-          <!-- Previous video (left side) -->
+          <!-- Previous video (left side) - paused -->
           <div class="video-container side">
             <div class="video-wrapper">
               <iframe
-                [src]="getYoutubeEmbedUrl(videos[getPreviousIndex()].youtubeId)"
+                [src]="getYoutubeEmbedUrl(videos[getPreviousIndex()].youtubeId, false)"
                 class="video-player"
                 frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen
               ></iframe>
             </div>
@@ -24,13 +24,13 @@
             </div>
           </div>
 
-          <!-- Current video (center) -->
+          <!-- Current video (center) - autoplay -->
           @for (video of videos; track video.id; let i = $index) {
             @if (i === currentVideoIndex) {
               <div class="video-container center video-slide">
                 <div class="video-wrapper">
                   <iframe
-                    [src]="getYoutubeEmbedUrl(video.youtubeId)"
+                    [src]="getYoutubeEmbedUrl(video.youtubeId, true)"
                     class="video-player"
                     frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -44,14 +44,14 @@
             }
           }
 
-          <!-- Next video (right side) -->
+          <!-- Next video (right side) - paused -->
           <div class="video-container side">
             <div class="video-wrapper">
               <iframe
-                [src]="getYoutubeEmbedUrl(videos[getNextIndex()].youtubeId)"
+                [src]="getYoutubeEmbedUrl(videos[getNextIndex()].youtubeId, false)"
                 class="video-player"
                 frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen
               ></iframe>
             </div>
