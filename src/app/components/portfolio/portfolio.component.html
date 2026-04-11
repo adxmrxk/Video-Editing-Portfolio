@@ -11,12 +11,13 @@
           <!-- Previous video (left side) -->
           <div class="video-container side">
             <div class="video-wrapper">
-              <video
-                [src]="videos[getPreviousIndex()].url"
+              <iframe
+                [src]="getYoutubeEmbedUrl(videos[getPreviousIndex()].youtubeId)"
                 class="video-player"
-              >
-                Your browser does not support the video tag.
-              </video>
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
             </div>
             <div class="video-info">
               <h3>{{ videos[getPreviousIndex()].title }}</h3>
@@ -29,16 +30,13 @@
             @if (i === currentVideoIndex) {
               <div class="video-container center video-slide">
                 <div class="video-wrapper">
-                  <video
-                    [src]="video.url"
-                    controls
-                    autoplay
+                  <iframe
+                    [src]="getYoutubeEmbedUrl(video.youtubeId)"
                     class="video-player"
-                    (click)="playVideo()"
-                    (ended)="onVideoEnded()"
-                  >
-                    Your browser does not support the video tag.
-                  </video>
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  ></iframe>
                 </div>
                 <div class="video-info">
                   <h3>{{ video.title }}</h3>
@@ -51,12 +49,13 @@
           <!-- Next video (right side) -->
           <div class="video-container side">
             <div class="video-wrapper">
-              <video
-                [src]="videos[getNextIndex()].url"
+              <iframe
+                [src]="getYoutubeEmbedUrl(videos[getNextIndex()].youtubeId)"
                 class="video-player"
-              >
-                Your browser does not support the video tag.
-              </video>
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
             </div>
             <div class="video-info">
               <h3>{{ videos[getNextIndex()].title }}</h3>

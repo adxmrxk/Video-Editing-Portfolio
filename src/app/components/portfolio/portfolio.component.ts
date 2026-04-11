@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 interface Video {
   id: number;
   title: string;
   description: string;
-  url: string;
+  youtubeId: string;
 }
 
 @Component({
@@ -14,45 +15,46 @@ interface Video {
   styleUrl: './portfolio.component.css'
 })
 export class PortfolioComponent {
+  private sanitizer = inject(DomSanitizer);
   currentVideoIndex = 0;
   animationKey = 0;
 
   videos: Video[] = [
     {
       id: 1,
-      title: 'Short 1',
+      title: 'Who Rules The World',
       description: 'Exploring the power structures that shape our world',
-      url: '/videos/Podcast Edit 4.mov'
+      youtubeId: '_MMZ2oY7taQ'
     },
     {
       id: 2,
-      title: 'Short 2',
+      title: 'Andrew Tate Edit',
       description: 'High-energy Andrew Tate motivational content',
-      url: '/videos/Andrew Tate Edit.mov'
+      youtubeId: 'ZdDbJKPKURs'
     },
     {
       id: 3,
-      title: 'Short 3',
+      title: 'French Gymnast Edit',
       description: 'French Olympic gymnastics surprising outcome',
-      url: '/videos/French Gymnast Edit.mov'
+      youtubeId: 'WU0vbygZa-A'
     },
     {
       id: 4,
-      title: 'Short 4',
+      title: 'Anti Facebook AI Platform',
       description: 'AI-driven social media platform disruption',
-      url: '/videos/Anti Facebook AI Platform Short Subtitles.mov'
+      youtubeId: 'uWz3P16VYZg'
     },
     {
       id: 5,
-      title: 'Short 5',
+      title: 'Celebrity Transformations',
       description: 'Celebrity fitness transformation journey',
-      url: '/videos/5 Celebrities Transformation.mov'
+      youtubeId: 'IFIonD7DMgw'
     },
     {
       id: 6,
-      title: 'Short 6',
+      title: 'Warriors Short',
       description: 'Breaking down the Warriors downfall',
-      url: '/videos/Warriors Short Subtitles.mov'
+      youtubeId: 'B7m-4REgCWM'
     }
   ];
 
@@ -89,5 +91,10 @@ export class PortfolioComponent {
 
   onVideoEnded() {
     this.nextVideo();
+  }
+
+  getYoutubeEmbedUrl(youtubeId: string): SafeResourceUrl {
+    const url = `https://www.youtube.com/embed/${youtubeId}`;
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 }
