@@ -21,8 +21,8 @@ export class ContactComponent {
   isSubmitting = false;
   submitStatus: 'idle' | 'success' | 'error' = 'idle';
 
-  // Backend API URL - update this if deploying to production
-  private apiUrl = 'http://localhost:3000/api/contact';
+  // Backend API URL - uses Netlify Functions in production
+  private apiUrl = '/.netlify/functions/contact';
 
   onSubmit() {
     if (this.isSubmitting) return;
