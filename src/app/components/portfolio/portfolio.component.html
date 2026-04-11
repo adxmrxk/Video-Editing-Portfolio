@@ -30,10 +30,10 @@
               <div class="video-container center video-slide">
                 <div class="video-wrapper">
                   <iframe
-                    [src]="getYoutubeEmbedUrl(video.youtubeId)"
+                    [src]="getYoutubeEmbedUrl(video.youtubeId, shouldAutoplay)"
                     class="video-player"
                     frameborder="0"
-                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen
                   ></iframe>
                 </div>

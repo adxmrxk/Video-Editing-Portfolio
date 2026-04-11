@@ -18,6 +18,7 @@ export class PortfolioComponent {
   private sanitizer = inject(DomSanitizer);
   currentVideoIndex = 0;
   animationKey = 0;
+  shouldAutoplay = false;
 
   videos: Video[] = [
     {
@@ -60,6 +61,7 @@ export class PortfolioComponent {
 
   nextVideo() {
     if (this.videos.length > 0) {
+      this.shouldAutoplay = true;
       this.currentVideoIndex = (this.currentVideoIndex + 1) % this.videos.length;
       this.animationKey++;
     }
@@ -67,12 +69,14 @@ export class PortfolioComponent {
 
   previousVideo() {
     if (this.videos.length > 0) {
+      this.shouldAutoplay = true;
       this.currentVideoIndex = (this.currentVideoIndex - 1 + this.videos.length) % this.videos.length;
       this.animationKey++;
     }
   }
 
   goToVideo(index: number) {
+    this.shouldAutoplay = true;
     this.currentVideoIndex = index;
     this.animationKey++;
   }
@@ -93,8 +97,9 @@ export class PortfolioComponent {
     this.nextVideo();
   }
 
-  getYoutubeEmbedUrl(youtubeId: string): SafeResourceUrl {
-    const url = `https://www.youtube.com/embed/${youtubeId}?loop=1&playlist=${youtubeId}&controls=1&modestbranding=1&rel=0&playsinline=1`;
+  getYoutubeEmbedUrl(youtubeId: string, autoplay: boolean = false): SafeResourceUrl {
+    const autoplayParam = autoplay ? '1' : '0';
+    const url = `https://www.youtube.com/embed/${youtubeId}?autoplay=${autoplayParam}&loop=1&playlist=${youtubeId}&controls=1&modestbranding=1&rel=0&playsinline=1`;
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 }
