@@ -56,6 +56,12 @@ export class PortfolioComponent {
       title: 'Warriors Short',
       description: 'Breaking down the Warriors downfall',
       youtubeId: 'B7m-4REgCWM'
+    },
+    {
+      id: 7,
+      title: 'Seahawks Super Bowl',
+      description: 'The real reason why the Seahawks won the Super Bowl',
+      youtubeId: 'BiyV99IrZzQ'
     }
   ];
 
