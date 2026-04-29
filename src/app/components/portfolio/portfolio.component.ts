@@ -60,7 +60,7 @@ export class PortfolioComponent {
     {
       id: 7,
       title: 'Seahawks Super Bowl',
-      description: 'The real reason why the Seahawks won the Super Bowl',
+      description: 'The secret to Seattle\'s Super Bowl success',
       youtubeId: 'BiyV99IrZzQ'
     }
   ];
