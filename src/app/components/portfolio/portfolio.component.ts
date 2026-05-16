@@ -12,7 +12,7 @@ interface Video {
   selector: 'app-portfolio',
   imports: [],
   templateUrl: './portfolio.component.html',
-  styleUrl: './portfolio.component.css'
+  styleUrl: './portfolio.component.css',
 })
 export class PortfolioComponent {
   private sanitizer = inject(DomSanitizer);
@@ -25,50 +25,63 @@ export class PortfolioComponent {
       id: 1,
       title: 'Who Rules The World',
       description: 'Exploring the power structures that shape our world',
-      youtubeId: '_MMZ2oY7taQ'
+      youtubeId: '_MMZ2oY7taQ',
     },
     {
       id: 2,
       title: 'Andrew Tate Edit',
       description: 'High-energy Andrew Tate motivational content',
-      youtubeId: 'ZdDbJKPKURs'
+      youtubeId: 'ZdDbJKPKURs',
     },
     {
       id: 3,
       title: 'French Gymnast Edit',
       description: 'French Olympic gymnastics surprising outcome',
-      youtubeId: 'WU0vbygZa-A'
+      youtubeId: 'WU0vbygZa-A',
     },
     {
       id: 4,
       title: 'Anti Facebook AI Platform',
       description: 'AI-driven social media platform disruption',
-      youtubeId: 'uWz3P16VYZg'
+      youtubeId: 'uWz3P16VYZg',
     },
     {
       id: 5,
       title: 'Celebrity Transformations',
       description: 'Celebrity fitness transformation journey',
-      youtubeId: 'IFIonD7DMgw'
+      youtubeId: 'IFIonD7DMgw',
     },
     {
       id: 6,
       title: 'Warriors Short',
       description: 'Breaking down the Warriors downfall',
-      youtubeId: 'B7m-4REgCWM'
+      youtubeId: 'B7m-4REgCWM',
     },
     {
       id: 7,
       title: 'Seahawks Super Bowl',
-      description: 'The secret to Seattle\'s Super Bowl success',
-      youtubeId: 'BiyV99IrZzQ'
-    }
+      description: "The secret to Seattle's Super Bowl success",
+      youtubeId: 'BiyV99IrZzQ',
+    },
+    {
+      id: 8,
+      title: 'Cooper Flagg ROY',
+      description: "Exploring Cooper Flagg's rookie of the year case",
+      youtubeId: 'EHSNQZvn0e8',
+    },
+    {
+      id: 9,
+      title: '2025 New York Jets',
+      description: 'New York Jets disaster season analysis',
+      youtubeId: 'p1SoASqI--k',
+    },
   ];
 
   nextVideo() {
     if (this.videos.length > 0) {
       this.shouldAutoplay = true;
-      this.currentVideoIndex = (this.currentVideoIndex + 1) % this.videos.length;
+      this.currentVideoIndex =
+        (this.currentVideoIndex + 1) % this.videos.length;
       this.animationKey++;
     }
   }
@@ -76,7 +89,8 @@ export class PortfolioComponent {
   previousVideo() {
     if (this.videos.length > 0) {
       this.shouldAutoplay = true;
-      this.currentVideoIndex = (this.currentVideoIndex - 1 + this.videos.length) % this.videos.length;
+      this.currentVideoIndex =
+        (this.currentVideoIndex - 1 + this.videos.length) % this.videos.length;
       this.animationKey++;
     }
   }
@@ -92,7 +106,9 @@ export class PortfolioComponent {
   }
 
   getPreviousIndex(): number {
-    return (this.currentVideoIndex - 1 + this.videos.length) % this.videos.length;
+    return (
+      (this.currentVideoIndex - 1 + this.videos.length) % this.videos.length
+    );
   }
 
   getNextIndex(): number {
@@ -103,7 +119,10 @@ export class PortfolioComponent {
     this.nextVideo();
   }
 
-  getYoutubeEmbedUrl(youtubeId: string, autoplay: boolean = false): SafeResourceUrl {
+  getYoutubeEmbedUrl(
+    youtubeId: string,
+    autoplay: boolean = false,
+  ): SafeResourceUrl {
     const autoplayParam = autoplay ? '1' : '0';
     const url = `https://www.youtube.com/embed/${youtubeId}?autoplay=${autoplayParam}&loop=1&playlist=${youtubeId}&controls=1&modestbranding=1&rel=0&playsinline=1`;
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
