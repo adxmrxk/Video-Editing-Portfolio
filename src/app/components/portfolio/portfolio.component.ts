@@ -73,7 +73,7 @@ export class PortfolioComponent {
       id: 9,
       title: '2025 New York Jets',
       description: 'New York Jets disaster season analysis',
-      youtubeId: 'p1SoASqI--k',
+      youtubeId: '_YpiZmvnILE',
     },
   ];
 
